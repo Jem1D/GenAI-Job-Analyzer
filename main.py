@@ -5,7 +5,21 @@ from utils import clean_text
 from scrape import get_cleaned_text_from_url
 import traceback
 
-st.set_page_config(layout="wide", page_title="Cold Email Generator", page_icon="📧")
+import subprocess
+import sys
+import os
+try:
+    # Check if the browser is already installed to avoid re-installing every time
+    # (Streamlit Cloud runs on Linux, so we check the Linux path)
+    if not os.path.exists("/home/appuser/.cache/ms-playwright"):
+        print("Playwright browser not found. Installing...")
+        with st.spinner("Setting up scraping engine (this happens once)..."):
+            subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
+            print("Playwright installed successfully.")
+except Exception as e:
+    print(f"Error installing Playwright: {e}")
+
+st.set_page_config(layout="wide", page_title="Job Post Analyzer", page_icon="📧")
 st.title("Job Post Analyzer")
 
 url_input = st.text_input("Enter a job URL", value="https://jobs.ashbyhq.com/batoncorporation/bb3ab630-5e59-48b5-9794-00a225879a66")
