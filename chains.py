@@ -118,6 +118,7 @@ class Chain:
             2. Mention the company name if available.
             3. Connect your {matched_skills} to their requirements.
             4. Do not include a subject line in the body.
+            5. Only include linkedin link in the email.
             """
         )
         
